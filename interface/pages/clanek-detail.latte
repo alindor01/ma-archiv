@@ -1,0 +1,8 @@
+
+{while $row = $result->fetch_assoc()}
+   <h2>{$row[name]}</h2>
+   <p>{$row[content] |noescape} </p>
+   <p>{$row[autor]} </p>
+   <p>{$ccc->format($row[created],cs)} </p>
+{/while}
+

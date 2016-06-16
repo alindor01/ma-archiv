@@ -1,0 +1,76 @@
+<h2>Baseball</h2>
+<h3>Japan, korean, mexican and us baseball</h3>
+
+<h3> MLB table: </h3>
+<table class="table">
+<tr>
+<td><b>Team</b></td>
+<td style="text-align:right"><b>Points</b></td>
+<td style="text-align:right"><b>W</b></td>
+<td style="text-align:right"><b>L</b></td>
+<td style="text-align:right"><b>Av</b></td>
+<td style="text-align:right"><b>HW</b></td>
+<td style="text-align:right"><b>HL</b></td>
+<td style="text-align:right"><b>AvH</b></td>
+<td style="text-align:right"><b>AW</b></td>
+<td style="text-align:right"><b>AL</b></td>
+<td style="text-align:right"><b>AvA</b></td>
+</tr>
+{while $row = $result3->fetch_assoc()}
+<tr>
+<td style="color:white;background-color:#333399;">{$row[team_name]}</td>
+<td  contenteditable="true" style="color:white;background-color:#333399;text-align:right">{$row[points]}</td>
+
+<td contenteditable="true" style="color:white;background-color:green;text-align:right">{$row[wins]}</td>
+<td contenteditable="true" style="color:white;background-color:#993333;border-bottom-color:red;text-align:right">{$row[looses]}</td>
+<td style="color:white;background-color:#333399;text-align:right">{round($row[wins]/$row[looses],2)}</td>
+
+<td contenteditable="true" style="color:white;background-color:green;text-align:right">{$row[home_wins]}</td>
+<td contenteditable="true" style="color:white;background-color:#993333;text-align:right">{$row[home_loses]}</td>
+<td style="color:white;background-color:#333399;text-align:right">{round($row[home_wins]/$row[home_loses],2)}</td>
+
+<td contenteditable="true" style="color:white;background-color:green;text-align:right">{$row[away_wins]}</td>
+<td contenteditable="true" style="color:white;background-color:#993333;text-align:right">{$row[away_loses]}</td>
+<td style="color:white;background-color:#333399;text-align:right">{round($row[away_wins]/$row[away_loses],2)}</td>
+
+</tr>
+{/while}
+</table>
+<p>Points budou win +1 a za prohru -.5 a bonusy +.3 za poražení silnějšího soupeře a -.3 za prohru nad slabším soupeřem.</p>
+<p>Každé dva týdny bude Decay</p>
+<p>Další decay bude 28.5. ve 12:00</p>
+
+<button onclick="decay()" >Decay</button>
+
+
+<script>
+
+function decay() {
+    alert("Decay has been applied!");
+}
+
+function saveToDatabase(editableObj,column,id) {
+	$(editableObj).css("background","#FFF url(loaderIcon.gif) no-repeat right");
+	$.ajax({
+		url: "saveedit.php",
+		type: "POST",
+		data:'column='+column+'&editval='+editableObj.innerHTML+'&id='+id,
+		success: function(data){
+			$(editableObj).css("background","#FDFDFD");
+		}        
+   });
+}
+
+</script>
+
+<h3>Upcoming matches</h3>
+<table>
+<tr><td><b> Time </b></td><td> <b>Home</b> </td><td>   </td><td> <b>Guests</b> </td></tr>
+
+{while $row = $result->fetch_assoc()}
+{if ($row[points] == "")}
+<tr><td>{$row[time]}</td><td> {$data[$row[team1]]} </td><td> : </td><td> {$data[$row[team2]]} </td></tr>
+{/if}
+{/while}
+</table>
+

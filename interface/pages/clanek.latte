@@ -1,0 +1,13 @@
+<h2>Články</h2>
+{while $row = $result->fetch_assoc()}
+
+ <div class="nevimjmeno">
+  <div class="overflow">
+ 
+	 <a href=/clanek-detail/{$row[id]|noescape}>
+			<img class="news" src="design/css/bets/test.jpg" alt="NewBettest" >
+			<h2 class="special_h2" > <span  class='back'>{$row[name]}</span></h2>
+	</a>
+ </div>
+</div>
+{/while}

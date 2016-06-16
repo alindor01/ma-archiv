@@ -1,0 +1,6 @@
+<h2>Multimedialní archiv</h2>
+<ul class="panel" >
+	{foreach $conn as $odkaz}
+		 <li><a href="/ma-archiv{$odkaz}">{str_replace("_","/",substr($odkaz,22,20))}</a></li>
+	{/foreach}
+<ul>
